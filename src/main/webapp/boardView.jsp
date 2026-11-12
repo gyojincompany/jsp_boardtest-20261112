@@ -19,7 +19,8 @@
 	<%
 		String viewNum = request.getParameter("bnum"); //유저가 클릭한 글 번호
 		
-		String sql = "SELECT * FROM board WHERE bnum=?";
+		String sql1 = "UPDATE board SET bhit = bhit + 1 WHERE bnum=?"; //조회수 증가 sql문
+		String sql2 = "SELECT * FROM board WHERE bnum=?"; //유저가 클릭한 글 번호 내용 가져오기
 		
 		String driverName = "com.mysql.jdbc.Driver"; 
 		String url = "jdbc:mysql://localhost:3306/boardtest"; //db이름(스키마이름)
@@ -27,7 +28,8 @@
 		String password = "12345";
 		
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null; //sql1번 실행용
+		PreparedStatement pstmt2 = null; //sql2번 실행용
 		ResultSet rs = null; //DB로부터 반환하는 레코드(게시글)를 받는 그릇
 		BoardDto bDto = null;
 				
@@ -36,13 +38,23 @@
 			conn = DriverManager.getConnection(url, username, password);
 			//DB와 jsp 서버간의 connenction(연결통로)가 생성
 			
-			//만들어진 커넥션을 통해서 sql문을 실행시키기 위한 단계
-			pstmt = conn.prepareStatement(sql);
+			
+			//=================slq1 실행 : 조회수 증가 ==================
+			
+			pstmt1 = conn.prepareStatement(sql1); //sql1 실행
 			
 			//유저가 클릭한 번호를 파라미터로 입력하기(? 채우기)
-			pstmt.setString(1, viewNum);
+			pstmt1.setString(1, viewNum);
 			
-			rs = pstmt.executeQuery();
+			pstmt1.executeUpdate(); //sql1->update문
+			
+			//=================slq2 실행 : 글 상세 내용 조회 ==================
+			
+			pstmt2 = conn.prepareStatement(sql2); //sql2 실행
+			
+			pstmt2.setString(1, viewNum);
+			
+			rs = pstmt2.executeQuery();
 			
 			if(rs.next()) {
 				int bnum = rs.getInt("bnum");
@@ -65,9 +77,15 @@
 			e.printStackTrace();
 		} finally {
 			try{
-				if(pstmt != null) {
-					pstmt.close();
+				if(rs != null) {
+					rs.close();
 				}
+				if(pstmt1 != null) {
+					pstmt1.close();
+				}
+				if(pstmt2 != null) {
+					pstmt2.close();
+				}				
 				if(conn != null) {
 					conn.close();
 				}
@@ -82,6 +100,7 @@
 	<h2>게시판 글 내용보기</h2>
 	<hr>
 	<p>번호: ${boardDto.bnum}</p>
+	<p>조회수: ${boardDto.bhit}</p>
 	<p>제목: ${boardDto.btitle}</p>
 	<p>내용: ${boardDto.bcontent}</p>
 	<p>작성자: ${boardDto.bwriter}</p>

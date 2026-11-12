@@ -89,6 +89,10 @@
 		제목 : <input type="text" name="btitle" value="${boardDto.btitle }" size="50"><br><br>
 		내용 : <textarea rows="10" cols="50" name="bcontent">${boardDto.bcontent }</textarea><br><br>
 		<input type="submit" value="수정완료">
+		<!--  하이퍼링크 버튼 -->
+		<!--  <input type="button" value="취소" onclick="location.href='boardList.jsp'"> -->
+		<input type="button" value="취소" onclick="history.go(-1)">
+		<!-- 뒤로 가기 버튼 -->
 	</form>
 	
 </body>

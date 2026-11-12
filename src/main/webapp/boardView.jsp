@@ -106,9 +106,10 @@
 	<p>작성자: ${boardDto.bwriter}</p>
 	<p>작성일: ${boardDto.bdate}</p>
 	<hr>
-	<a href="boardList.jsp">글목록</a>
-	<a href="boardModifyForm.jsp?bnum=${boardDto.bnum}">글수정</a>
-	<a href="#">글삭제</a>
+	<input type="button" value="글목록" onclick="location.href='boardList.jsp'">
+	<input type="button" value="글수정" onclick="location.href='boardModifyForm.jsp?bnum=${boardDto.bnum}'">
+	<input type="button" value="글삭제" onclick="location.href=''">	
+	
 	
 </body>
 </html>

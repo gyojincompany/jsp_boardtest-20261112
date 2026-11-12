@@ -108,7 +108,7 @@
 	<hr>
 	<input type="button" value="글목록" onclick="location.href='boardList.jsp'">
 	<input type="button" value="글수정" onclick="location.href='boardModifyForm.jsp?bnum=${boardDto.bnum}'">
-	<input type="button" value="글삭제" onclick="location.href=''">	
+	<input type="button" value="글삭제" onclick="location.href='boardDelete.jsp?bnum=${boardDto.bnum}'">	
 	
 	
 </body>

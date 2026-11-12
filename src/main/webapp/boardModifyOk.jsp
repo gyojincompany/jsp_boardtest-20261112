@@ -114,6 +114,6 @@
 	<hr>
 	<a href="boardList.jsp">글목록</a>
 	<a href="boardModifyForm.jsp?bnum=${boardDto.bnum}">글수정</a>
-	<a href="#">글삭제</a>
+	<a href="boardDelete?bnum=${boardDto.bnum}">글삭제</a>
 </body>
 </html>

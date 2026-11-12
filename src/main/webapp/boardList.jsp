@@ -38,7 +38,7 @@
 			
 			//만들어진 커넥션을 통해서 sql문을 실행시키기 위한 단계
 			pstmt = conn.prepareStatement(sql);
-				
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -90,14 +90,16 @@
 				<tr>
 					<td>${bDto.bnum}</td>
 					<td>
-						<c:choose>
-							<c:when test="${fn:length(bDto.btitle)>20}">
-								${fn:substring(bDto.btitle,0,20)}...
-							</c:when>
-							<c:otherwise>
-								${bDto.btitle}
-							</c:otherwise>
-						</c:choose>
+						<a href="boardView.jsp?bnum=${bDto.bnum}">
+							<c:choose>
+								<c:when test="${fn:length(bDto.btitle)>20}">
+									${fn:substring(bDto.btitle,0,20)}...
+								</c:when>
+								<c:otherwise>
+									${bDto.btitle}
+								</c:otherwise>
+							</c:choose>
+						</a>
 					</td>
 					<td>${bDto.bwriter}</td>
 					<td>${bDto.bhit}</td>

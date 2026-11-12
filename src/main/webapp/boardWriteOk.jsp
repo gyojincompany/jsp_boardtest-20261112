@@ -68,6 +68,8 @@
 				
 			}
 		}
+		
+		response.sendRedirect("boardList.jsp"); //글목록 보기로 강제 이동
 	
 	%>
 </body>

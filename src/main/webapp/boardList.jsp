@@ -110,6 +110,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<input type="button" value="글쓰기" onclick="location.href='boardWrite.jsp'">
 	
 </body>
 </html>

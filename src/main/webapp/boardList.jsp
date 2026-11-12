@@ -7,7 +7,8 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>  
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>  
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,10 +89,21 @@
 			<c:forEach var="bDto" items="${boardList}">
 				<tr>
 					<td>${bDto.bnum}</td>
-					<td>${bDto.btitle}</td>
+					<td>
+						<c:choose>
+							<c:when test="${fn:length(bDto.btitle)>20}">
+								${fn:substring(bDto.btitle,0,20)}...
+							</c:when>
+							<c:otherwise>
+								${bDto.btitle}
+							</c:otherwise>
+						</c:choose>
+					</td>
 					<td>${bDto.bwriter}</td>
 					<td>${bDto.bhit}</td>
-					<td>${bDto.bdate}</td>
+					<td>
+						${fn:substring(bDto.bdate,0,10)}
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
